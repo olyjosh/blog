@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html ng-app="main">
+    <head>
+        <title><%= title %></title>
+        <!-- for-mobile-apps -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content=<%= meta.keyword %> />
+
+
+              <!--Angular stuff here-->
+        <script src="js/angular/angular.js"></script>
+        <script src="js/angular/angular.js"></script>
+        <script src="js/angular-aria/angular-aria.js"></script> 
+        <script src="js/angular-animate/angular-animate.js"></script> 
+        <script src="js/angular-material/angular-material.js"></script> 
+        <script src="js/angle-class/indexangle.js"></script> 
+        <script src="js/angle-class/blogPost.js"></script> 
+        <link rel="stylesheet" href="js/angular-material/angular-material.css">
+        <script type="text/javascript">
+
+
+        </script>
+
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+            function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <!-- //for-mobile-apps -->
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/nncss.css" rel="stylesheet" type="text/css" />
+        <link href="css/myCss.css" rel="stylesheet" type="text/css" />
+        <!-- js -->
+        <script src="js/jquery-1.11.1.min.js"></script>
+        <!-- //js -->
+        <!-- animation-effect -->
+        <link href="css/animate.min.css" rel="stylesheet"> 
+        <script src="js/wow.min.js"></script>
+        <script>
+            new WOW().init();
+        </script>
+        <!-- //animation-effect -->
+        <link href='//fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,300italic,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+        <!--<link href='//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic' rel='stylesheet'>-->
+
+        <!-- start-smooth-scrolling -->
+        <script type="text/javascript" src="js/move-top.js"></script>
+        <script type="text/javascript" src="js/easing.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $(".scroll").click(function (event) {
+                    event.preventDefault();
+                    $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
+                });
+            });
+        </script>
+        <!-- start-smooth-scrolling -->
+    </head>
+
+    <body ng-controller="postBlogCtrl">
+
+        <!--          <md-toolbar class="md-" md-scroll-shrink ng-if="true" ng-controller="TitleController">-->
+    <md-toolbar class="md-hue-2" md-scroll-shrink ng-if="true">
+        <div class="md-toolbar-tools">
+            <md-button aria-label="frosh.ng">
+                Blogging.it
+            </md-button>
+        </div>
+    </md-toolbar>
+    <div class="">
+
+        <div >
+            <div class="md-padding" layout="row">
+                <div class="md-padding col-md-9 mail-grid1 container">
+                    <!--<md-progress-linear md-mode="indeterminate" ng-show="isLoading" class="md-hue-2"></md-progress-linear>-->
+                    <div layout="row" layout-sm="column" layout-align="space-around">
+                        <md-progress-circular md-mode="indeterminate" ng-show="isLoading" class="md-hue-2" md-diameter="20px"></md-progress-circular>
+                    </div>
+                    <div><h2>{{message}}<h2></div>
+                                <div layout='column'>
+
+                                    <form name="productForm">
+                                        <div layout='row'>
+                                            <md-input-container flex>
+                                                <label>Title Name</label>
+                                                <input name="title" type="text" ng-model="productData.title"/>
+                                                <div ng-messages="productForm.product.$error" role="alert">
+                                                    <div ng-message-exp="['required']">
+                                                        Post title is required
+                                                    </div>
+
+                                                </div>
+                                            </md-input-container>                            
+                                        </div>
+                                        <div layout='row'>
+                                            <md-input-container flex>
+                                                <label>Story</label>
+                                                <input name="post" type="text" ng-model="productData.post"/>
+                                                <div ng-messages="productForm.description.$error" role="alert">
+                                                    <div ng-message-exp="['required']">
+                                                        Write your own story
+                                                    </div></div>
+                                            </md-input-container>
+                                        </div>
+
+                                        <div layout='column'>
+                                            <div class="">
+
+                                                <md-button class="md-primary md-raised"  ng-click="postIt()" style="margin-right:20px;">
+                                                    Post It!
+                                                </md-button>
+                                            </div>
+                                    </form>
+                                </div>
+
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mail-grid animated wow slideInRight" data-wow-duration="1000ms" data-wow-delay="500ms">
+                                    </div>
+                                </div>    
+
+                                </div>
+                                </div>
+
+                                </div>
+
+                                <!-- //Showing post here  -->
+                                <div class="banner-bottom" layout="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <div id="mainDiv">
+                                            <div ng-repeat="el in elements">
+                                                <div id="el._postID">
+
+                                                    <md-card class="animate-switch-container" ng-switch on="editable">
+                                                        <!--<img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">-->
+                                                        <md-card-title>
+                                                            <md-card-title-text>
+                                                                <span class="md-headline animate-switch" ng-switch-default>{{el.title}}</span>
+                                                                <input type="text" class="animate-switch" ng-model="el.title" ng-switch-when=true >
+                                                            </md-card-title-text>
+                                                        </md-card-title>
+                                                        <md-card-content>
+                                                            <p class="animate-switch" ng-switch-default>{{el.post}}</p>
+                                                            <input type="text" class="animate-switch" ng-model="el.post"  ng-switch-when=true  flex>
+                                                        </md-card-content>
+                                                        <md-card-actions layout="row" layout-align="end center">
+                                                            <!--<div ng-controller="dialogCtrl">-->
+                                                            <md-button class="glyphicon glyphicon-save" ng-show="editable" ng-click="editIt(el._id)"></md-button>
+                                                            <md-button class="glyphicon glyphicon-pencil" ng-show="!editable" ng-click="editable=true"></md-button>
+<!--                                                            </div>-->
+                                                            <md-button class="glyphicon glyphicon-trash"  ng-click="deleteIt(el._id, elements.indexOf(el))"></md-button>
+                                                        </md-card-actions>
+                                                    </md-card>
+
+
+                                                </div>
+                                            </div>
+                                            <!--                <p ng-repeat="el in elements">{{el}}</p>
+                                            <p ng-repeat="el2 in elements2">{{el2}}</p>-->
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                                <!-- footer -->
+
+                                <div class="footer-copy animated wow slideInUp" data-wow-duration="1000ms" data-wow-delay="500ms">
+                                    <div class="container">
+                                        <p>&copy 2016. NO right reserved </p>
+                                    </div>
+                                </div>
+                                <!-- //footer -->
+
+                                <script type="text/ng-template" id="dialog1.tmpl.html">
+                                <md-dialog aria-label="Edit" ng-controller="dialogCtrl" ng-cloak>
+
+                                    <form>
+                                        <md-toolbar>
+                                            <div class="md-toolbar-tools">
+                                                <h3> Edit Blog post</h3>
+                                                <span flex></span>
+                                                <md-button class="md-icon-button" ng-click="cancel()">
+                                                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                                                </md-button>
+                                            </div>
+                                        </md-toolbar>
+
+                                        <md-dialog-content>
+                                            <div class="md-dialog-content">
+
+                                                <div class="">
+
+                                                    <!-- Editing stuff-->
+                                                    <div class="">
+                                                        <div layout='column'>
+                                                            <form name="loginForm">
+                                                                <md-input-container flex>
+                                                                    <label>Title</label>
+                                                                    <input name="email" type="text" ng-model="loginData.username" required/>
+                                                                    <div ng-messages="loginForm.email.$error" role="alert">
+                                                                        <div ng-message-exp="['required']">
+                                                                            Title required
+                                                                        </div></div>
+                                                                </md-input-container>
+
+                                                                <md-input-container flex>
+                                                                    <label>Your old Story</label>
+                                                                    <input type="password" ng-model="loginData.password"/>
+                                                                    <div ng-messages="loginForm.password.$error" role="alert">
+                                                                        <div ng-message-exp="['required']">
+                                                                            Post cannot be empty.
+                                                                        </div></div>
+                                                                </md-input-container>
+
+                                                                <md-button class="md-primary md-raised" ng-click="login()" style="margin-right:20px;">
+                                                                    Save
+                                                                </md-button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div >
+
+                                                    <hr/>
+
+                                                </div>
+
+
+                                            </div>
+                                        </md-dialog-content>
+
+                                        <md-dialog-actions layout="row">
+                                            <md-button ng-click="answer('useful')" style="margin-right:20px;">
+                                                Cancel
+                                            </md-button>
+                                            <span flex></span>
+
+                                            <md-button class="md-primary" ng-click="toggle()" style="margin-right:20px;">
+                                                {{butText}}
+                                            </md-button>
+                                        </md-dialog-actions>
+                                    </form>
+                                </md-dialog>
+                                </script>
+                                <!-- for bootstrap working -->
+                                <script src="js/bootstrap.js"></script>
+
+                                <script type="text/javascript">
+                                                            $(document).ready(function () {
+                                                                $().UItoTop({easingType: 'easeOutQuart'});
+
+                                                            });
+                                </script>
+                                <!-- //here ends scrolling icon -->
+                                </body>
+                                </html>
